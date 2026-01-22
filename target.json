@@ -1,0 +1,11 @@
+{
+    "include": [
+        {
+            "keyboard": "lotus_qaz",
+            "keymap": "vial",
+            "target": "uf2",
+            "flags": "EXTRAFLAGS=\"-DAUTO_KDK_TRACKBALL_ENABLED\"",
+            "name": "lotus_qaz_vial"
+        }
+    ]
+}
