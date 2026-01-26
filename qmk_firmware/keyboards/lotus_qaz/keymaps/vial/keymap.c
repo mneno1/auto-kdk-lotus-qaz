@@ -36,7 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
     ),
     [2] = LAYOUT(
-         (
          (QK_LSFT|KC_1),  (QK_LSFT|KC_2),  (QK_LSFT|KC_3),  (QK_LSFT|KC_4),
          (QK_LSFT|KC_5),  (QK_LSFT|KC_6),  (QK_LSFT|KC_7),  (QK_LSFT|KC_8),
                KC_MINUS, (QK_LSFT|KC_MINUS),        KC_GRAVE, (QK_LSFT|KC_GRAVE),
@@ -49,7 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
     ),
     [3] = LAYOUT(
-        (
         (QK_LCTL|QK_LSFT|KC_TAB), (QK_LCTL|KC_TAB),  (QK_LGUI|KC_E),  (QK_LGUI|KC_R),
          (QK_LCTL|KC_T),           KC_NO,      KC_PAGE_UP,           KC_UP,
            KC_PAGE_DOWN, KC_PRINT_SCREEN,  (QK_LCTL|KC_A),  (QK_LCTL|KC_S),
