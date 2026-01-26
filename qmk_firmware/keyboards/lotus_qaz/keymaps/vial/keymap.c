@@ -14,14 +14,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
                    KC_Q,            KC_W,            KC_E,            KC_R,
                    KC_T,            KC_Y,            KC_U,            KC_I,
-                   KC_O,            KC_P, MOD_TAP(MOD_LSFT,KC_A),            KC_S,
+                   KC_O,            KC_P, MT(MOD_LSFT,KC_A),          KC_S,
                    KC_D,            KC_F,            KC_G,            KC_H,
-                   KC_J,            KC_K,            KC_L, MOD_TAP(MOD_RSFT,KC_SEMICOLON),
+                   KC_J,            KC_K,            KC_L, MT(MOD_RSFT,KC_SEMICOLON),
                    KC_Z,            KC_X,            KC_C,            KC_V,
                    KC_B,      KC_MS_BTN1,      KC_MS_BTN2,            KC_N,
                    KC_M,        KC_COMMA,          KC_DOT,        KC_SLASH,
-        MOD_TAP(MOD_LCTL,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
-        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, MOD_TAP(MOD_RCTL,KC_LANGUAGE_2)
+        MT(MOD_LCTL,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
+        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, MT(MOD_RCTL,KC_LANGUAGE_2)
     ),
     [1] = LAYOUT(
                    KC_1,            KC_2,            KC_3,            KC_4,
