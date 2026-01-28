@@ -261,7 +261,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-bool process_record_user(uint16_t keycode, keycode_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == KC_LEFT_ALT) || (keycode == KC_RIGHT_ALT)) {
         if (record->event.pressed == true) {
             set_scrolling = true;
