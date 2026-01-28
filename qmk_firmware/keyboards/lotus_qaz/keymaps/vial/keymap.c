@@ -6,7 +6,9 @@
 #include "qmk_settings.h"
 #endif
 
-/* USER INCLUDE BEGIN *//* USER INCLUDE END */
+/* USER INCLUDE BEGIN */
+#include "quantum.h"
+/* USER INCLUDE END */
 
 /* GENERATED CODE BEGIN */
 
@@ -246,4 +248,28 @@ void __wrap_dynamic_keymap_reset(void) {
 /* GENERATED CODE END */
 
 
-/* USER CODE BEGIN *//* USER CODE END */
+/* USER CODE BEGIN */
+bool set_scrolling = false;
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keycode_t *record) {
+    if ((keycode == KC_LEFT_ALT) || (keycode == KC_RIGHT_ALT)) {
+        if (record->event.pressed == true) {
+            set_scrolling = true;
+        }
+        else {
+            set_scrolling = false;
+        }
+    }
+    return true;
+}
+/* USER CODE END */
