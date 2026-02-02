@@ -278,7 +278,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
-    return mouse_report;
+#ifdef SCROLL_MODE_INVERT_XY
+    // スクロール方向を反転
+    mouse_report.h = -mouse_report.h;
+    mouse_report.v = -mouse_report.v;
+#endif // SCROLL_MODE_INVERT_XY    return mouse_report;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
