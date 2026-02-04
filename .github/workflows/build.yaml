@@ -1,9 +1,7 @@
 name: Build Keyboard Firmware
 
 on:
-  workflow_dispatch:
-# on:
-#  push:
+  push:
     branches:
       - "**"
 
