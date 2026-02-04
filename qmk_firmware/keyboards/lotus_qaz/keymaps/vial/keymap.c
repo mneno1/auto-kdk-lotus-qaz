@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
                   KC_NO,      KC_MS_BTN4,      KC_MS_BTN3,           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
-          jQK_BOOTLOADER,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+          QK_BOOTLOADER,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
     ),
     [5] = LAYOUT(
