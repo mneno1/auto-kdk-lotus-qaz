@@ -6,7 +6,9 @@
 #include "qmk_settings.h"
 #endif
 
-/* USER INCLUDE BEGIN *//* USER INCLUDE END */
+/* USER INCLUDE BEGIN */
+#include "quantum.h"
+/* USER INCLUDE END */
 
 /* GENERATED CODE BEGIN */
 
@@ -17,11 +19,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    KC_O,            KC_P, MT(MOD_LSFT,KC_A),          KC_S,
                    KC_D,            KC_F,            KC_G,            KC_H,
                    KC_J,            KC_K,            KC_L, MT(MOD_RSFT,KC_SEMICOLON),
-                   KC_Z,            KC_X,            KC_C,            KC_V,
+        MT(MOD_LCTL,KC_Z),          KC_X,            KC_C,            KC_V,
                    KC_B,      KC_MS_BTN1,      KC_MS_BTN2,            KC_N,
-                   KC_M,        KC_COMMA,          KC_DOT,        KC_SLASH,
-        MT(MOD_LCTL,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
-        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, MT(MOD_RCTL,KC_LANGUAGE_2)
+                   KC_M,        KC_COMMA,          KC_DOT,     MT(MOD_RCTL,KC_SLASH),
+        LT(6,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
+        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, LT(5,KC_LANGUAGE_2)
     ),
     [1] = LAYOUT(
                    KC_1,            KC_2,            KC_3,            KC_4,
@@ -54,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          (QK_LGUI|KC_D),  (QK_LCTL|KC_F),  (QK_LCTL|KC_G),         KC_HOME,
                 KC_LEFT,         KC_DOWN,        KC_RIGHT,          KC_END,
          (QK_LCTL|KC_Z),  (QK_LCTL|KC_X),  (QK_LCTL|KC_C),  (QK_LCTL|KC_V),
-         (QK_LCTL|KC_B),  KC_TRANSPARENT,  KC_TRANSPARENT,           KC_NO,
+         (QK_LCTL|KC_B),      KC_MS_BTN4,      KC_MS_BTN3,           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,       KC_INSERT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
@@ -66,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         (QK_LSFT|QK_LGUI|KC_DOWN), (QK_LSFT|QK_LGUI|KC_RIGHT), (QK_LCTL|QK_LGUI|KC_RIGHT),           KC_NO,
         (QK_LGUI|KC_LEFT), (QK_LGUI|KC_DOWN), (QK_LGUI|KC_RIGHT),           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,  KC_TRANSPARENT,  KC_TRANSPARENT,           KC_NO,
+                  KC_NO,      KC_MS_BTN4,      KC_MS_BTN3,           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+          QK_BOOTLOADER,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
     ),
     [5] = LAYOUT(
@@ -246,4 +248,62 @@ void __wrap_dynamic_keymap_reset(void) {
 /* GENERATED CODE END */
 
 
-/* USER CODE BEGIN *//* USER CODE END */
+/* USER CODE BEGIN */
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 8.0
+#define SCROLL_DIVISOR_V 8.0
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+bool set_scrolling = false;
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+#ifdef SCROLL_MODE_INVERT_XY
+    // スクロール方向を反転
+    mouse_report.h = -mouse_report.h;
+    mouse_report.v = -mouse_report.v;
+#endif // SCROLL_MODE_INVERT_XY
+    return mouse_report;
+}
+
+#if 0 // ALTキーだと都合が悪いケースがあるので一旦無効化
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if ((keycode == KC_LEFT_ALT) || (keycode == KC_RIGHT_ALT)) {
+        set_scrolling = record->event.pressed;
+    }
+    return true;
+}
+#endif
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Enable set_scrolling if the current layer is Layer 1 or Layer 2
+    if ((get_highest_layer(state) == 1) ||
+        (get_highest_layer(state) == 2)) {
+        set_scrolling = true;
+    }
+    else {
+        set_scrolling = false;
+    }
+    return state;
+}
+/* USER CODE END */
