@@ -286,10 +286,24 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+#if 0 // ALTキーだと都合が悪いケースがあるので一旦無効化
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == KC_LEFT_ALT) || (keycode == KC_RIGHT_ALT)) {
         set_scrolling = record->event.pressed;
     }
     return true;
+}
+#endif
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Enable set_scrolling if the current layer is Layer 1 or Layer 2
+    if ((get_highest_layer(state) == 1) ||
+        (get_highest_layer(state) == 2)) {
+        set_scrolling = true;
+    }
+    else {
+        set_scrolling = false;
+    }
+    return state;
 }
 /* USER CODE END */
