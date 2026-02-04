@@ -19,11 +19,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    KC_O,            KC_P, MT(MOD_LSFT,KC_A),          KC_S,
                    KC_D,            KC_F,            KC_G,            KC_H,
                    KC_J,            KC_K,            KC_L, MT(MOD_RSFT,KC_SEMICOLON),
-                   KC_Z,            KC_X,            KC_C,            KC_V,
+        MT(MOD_LCTL,KC_Z),          KC_X,            KC_C,            KC_V,
                    KC_B,      KC_MS_BTN1,      KC_MS_BTN2,            KC_N,
-                   KC_M,        KC_COMMA,          KC_DOT,        KC_SLASH,
-        MT(MOD_LCTL,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
-        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, MT(MOD_RCTL,KC_LANGUAGE_2)
+                   KC_M,        KC_COMMA,          KC_DOT,     MT(MOD_RCTL,KC_SLASH),
+        LT(6,KC_LANGUAGE_1),     KC_LEFT_ALT,  LT(4,KC_SPACE), LT(2,KC_DELETE),
+        LT(1,KC_BACKSPACE),  LT(3,KC_ENTER),    KC_RIGHT_ALT, LT(5,KC_LANGUAGE_2)
     ),
     [1] = LAYOUT(
                    KC_1,            KC_2,            KC_3,            KC_4,
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          (QK_LGUI|KC_D),  (QK_LCTL|KC_F),  (QK_LCTL|KC_G),         KC_HOME,
                 KC_LEFT,         KC_DOWN,        KC_RIGHT,          KC_END,
          (QK_LCTL|KC_Z),  (QK_LCTL|KC_X),  (QK_LCTL|KC_C),  (QK_LCTL|KC_V),
-         (QK_LCTL|KC_B),  KC_TRANSPARENT,  KC_TRANSPARENT,           KC_NO,
+         (QK_LCTL|KC_B),      KC_MS_BTN4,      KC_MS_BTN3,           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,       KC_INSERT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         (QK_LSFT|QK_LGUI|KC_DOWN), (QK_LSFT|QK_LGUI|KC_RIGHT), (QK_LCTL|QK_LGUI|KC_RIGHT),           KC_NO,
         (QK_LGUI|KC_LEFT), (QK_LGUI|KC_DOWN), (QK_LGUI|KC_RIGHT),           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,  KC_TRANSPARENT,  KC_TRANSPARENT,           KC_NO,
+                  KC_NO,      KC_MS_BTN4,      KC_MS_BTN3,           KC_NO,
                   KC_NO,           KC_NO,           KC_NO,           KC_NO,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+          jQK_BOOTLOADER,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
     ),
     [5] = LAYOUT(
